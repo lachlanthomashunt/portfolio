@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Python Password Checker</title>
+        <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+    </head>
+    <body>
+        <header id="header">
+            <h1><strong>Python Password Checker</strong></h1>
+        </header>
+        <div id="main">
+          <div class="inner">
+            <ul class="icons back">
+          <li><a href="../index.html" class="icon regular fa-arrow-alt-circle-left"><span> Back to Homepage</span></a></li>
+          </ul>
+          </div>
+          <h2>This is a basic Application which demonstrates how Python can be used to validate a user's attempt to set a new password with some parameters.
+          </h2>
+            <section>
+                <div class="row">
+                    <div class="col-6 col-12-xsmall">
+                        <h4>The Python script will:</h4>
+                        <ul>
+                            <li>Set containts the user's password must fall within,</li>
+                            <li>log the date/time the user submitted their password,</li>
+                            <li>calculate the length of the new password the user has submitted,</li>
+                            <li>report back to the user if their password is not within the constraints,</li>
+                            <li>write to a log file each failed attempt to create a user password,</li>
+                            <li>Report to the user if their submitted password is acceptable and write this to the log file.</li>
+                            <li>Calculate the strength of a password if is using only letters or only numbers and report this to the user.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+              <br/>
+              <h5>The following Python code is used:</h5>
+				<pre>
+                    <code>
+                                        
+                        def main():
+
+                        #assign CONSTANTS
+                            MIN_PASSWORD_LENGTH = 6
+                            MAX_PASSWORD_LENGTH = 14
+
+                        #import datetime
+                            import datetime
+
+                        #INPUT password
+                            password = input("PasswordChecker4 program developed by Lachlan Hunt\n")
+
+
+                        #CALCULATE the length of the password
+                            password_length = len(password)
+
+                        #WHILE loop keeps  password accept/rejection messages based on MIN/MAX lengths
+                            while (password_length < MIN_PASSWORD_LENGTH) or (password_length > MAX_PASSWORD_LENGTH):
+                                if (password_length < MIN_PASSWORD_LENGTH):
+                                    print("Your password length is", (password_length),"and is less than the required length for passwords.")
+
+                        #Writing the error to the log file (password_log_lachlan.txt)
+                                    writeLog = open("password_log_lachlan_hunt.txt", "a+")
+                                    current_date_time = datetime.datetime.today()
+                                    writeLog.write(str(current_date_time))
+                                    writeLog.write(", password < 6")
+                                    writeLog.write("\n")
+                                    writeLog.close()
+
+                                    password = input("Please enter a different password: ")
+                                    password_length = len(password)
+
+                        # ENDIF
+
+                        #OUTPUT password accept/rejection messages based on MIN/MAX lengths
+                                if (password_length > MAX_PASSWORD_LENGTH):
+                                    print("Your password length is", (password_length),"and is greater than the required length for passwords.")
+
+                        #Writing the error to the log file (password_log_lachlan.txt)
+                                    writeLog = open("password_log_lachlan_hunt.txt", "a+")
+                                    current_date_time = datetime.datetime.today()
+                                    writeLog.write(str(current_date_time))
+                                    writeLog.write(", password > 14")
+                                    writeLog.write("\n")
+                                    writeLog.close()
+
+                                    password = input("Please enter a different password: ")
+                                    password_length = len(password)
+
+                        # ENDIF
+
+                        #assign password strength values - only possible once password is set by user
+                            onlyNumbers = password.isnumeric()
+                            onlyLetters = password.isalpha()
+
+
+                        #Display successful password assessment of strength and log file
+                            if (onlyNumbers) or (onlyLetters):
+                                message = "Your password length is {} and is acceptable, however it is weak (contains only numbers or only letters).\nPlease consider a combination of letters, numbers and other characters."
+                                print(message.format(password_length))
+                                #open and read log file
+                                writeLog = open("password_log_lachlan_hunt.txt","r")
+                                for line in writeLog:
+                                    print(line)
+                                writeLog.close()
+
+                                list_data_1 = []
+
+                                input_file = open("password_log_lachlan_hunt.txt","r")
+
+                                for line in input_file:
+                                    list_data_1.append(line)
+
+                                input_file.close()
+
+                                no_of_pw_small = 0 #create count for keywords starting at zero
+                                for line in list_data_1:
+                                    if "password < 6" in line: #define keyword
+                                        no_of_pw_small = no_of_pw_small + 1 #add 1 to the count for every keyword found
+                                #Display count of password attempts that are too small
+                                print("Number of MIN_PASSWORD_LENGTH errors:" , (no_of_pw_small))
+
+                                no_of_pw_large = 0 #create count for keywords starting at zero
+                                for line in list_data_1:
+                                    if "password > 14" in line: #define keyword
+                                        no_of_pw_large = no_of_pw_large + 1 #add 1 to the count for every keyword found
+                                # Display count of password attempts that are too long
+                                print("Number of MAX_PASSWORD_LENGTH errors: ", (no_of_pw_large))
+
+                            #If the password does not contain only numbers or only letters, run the following
+                            else:
+                                message = "Your password length is {}, making it acceptable and it is strong (contains a combination of letters, numbers and other characters)."
+                                print(message.format(password_length))
+                                writeLog = open("password_log_lachlan_hunt.txt","r")
+                                for line in writeLog:
+                                    print(line)
+                                writeLog.close()
+
+                                list_data_2 = []
+
+                                input_file = open("password_log_lachlan_hunt.txt","r")
+
+                                for line in input_file:
+                                    list_data_2.append(line)
+
+                                input_file.close()
+
+                                no_of_pw_small = 0 #create count for keywords starting at zero
+                                for line in list_data_2:
+                                    if "password < 6" in line: #define keyword
+                                        no_of_pw_small = no_of_pw_small + 1 #add 1 to the count for every keyword found
+                                # Display count of password attempts that are too small
+                                print("Number of MIN_PASSWORD_LENGTH errors:" , (no_of_pw_small))
+
+                                no_of_pw_large = 0 #create count for keywords starting at zero
+                                for line in list_data_2:
+                                    if "password > 14" in line: #define keyword
+                                        no_of_pw_large = no_of_pw_large + 1 #add 1 to the count for every keyword found
+                                # Display count of password attempts that are too long
+                                print("Number of MAX_PASSWORD_LENGTH errors:", (no_of_pw_large))
+
+                        main()
+
+                </code>
+              </pre>
+						</section>
+        </div>
+    
+    <!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+						<!--<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>-->
+						<li><a href="https://github.com/lhunt04" class="icon brands fa-github"><span class="label">Github Account</span></a></li>
+						<!--<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>-->
+						<li><a href="www.linkedin.com/in/lachlan-hunt-9b3503116" class="icon brands fa-linkedin-in"><span class="label">Linkedin Account</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; LH Digital</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+      </footer>
+
+      <!-- Scripts -->
+      <script src="../assets/js/jquery.min.js"></script>
+      <script src="../assets/js/jquery.poptrox.min.js"></script>
+      <script src="../assets/js/browser.min.js"></script>
+      <script src="../assets/js/breakpoints.min.js"></script>
+      <script src="../assets/js/util.js"></script>
+      <script src="../assets/js/main.js"></script>
+      <script src="../assets/js/calc.js"></script>
+
+
+    </body>
+</html>

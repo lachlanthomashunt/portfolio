@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Javascript Calculator</title>
+        <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+    </head>
+    <body>
+        <header id="header">
+            <h1><strong>Calculator App</strong></h1>
+        </header>
+        <div id="main">
+				<div class="inner">
+					<ul class="icons back">
+				<li><a href="../index.html" class="icon regular fa-arrow-alt-circle-left"><span> Back to Homepage</span></a></li>
+				</ul>
+				</div>
+          <h2>This is a basic Application which demonstrates how Javascript can calculate values provided by the user.
+          </h2>
+            <section>
+                <div class="row">
+                    <div class="col-6 col-12-xsmall">
+                        <h4>Users can select to:</h4>
+                        <ul>
+                            <li>Add values,</li>
+                            <li>Subtract values,</li>
+                            <li>Multiply values,</li>
+                            <li>Divide values.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+              <form>
+                <div class="row gtr-uniform gtr-50">
+                  <div class="col-4 col-12-xsmall">
+                    Value 1: <input type="text" id="value1">
+                  </div>
+                  <div class="col-4 col-12-xsmall">
+                  Value 2: <input type="text" id="value2">
+                  </div>
+                  <div class="col-4 col-12-xsmall">
+                    Operator:
+                    <select id="operator">
+                      <option value="add">Add</option>
+                      <option value="min">Minus</option>
+                      <option value="div">Divide</option>
+                      <option value="mul">Multiply</option>
+                    </select>
+                  </div>
+                </div>
+                <br/>
+                  <ul class="actions">
+                      <li><a class="button" onclick="calc()">Calculate</a></li>
+                  </ul>
+              </form>
+              <h4>The result : <span id="result"></span></h4>
+              <br/>
+              <h5>The following Javascript code is used:</h5>
+							<pre>
+                <code>
+                  function calc() {
+                    var a = parseInt(document.querySelector("#value1").value);
+                    var b = parseInt(document.querySelector("#value2").value);
+                    var op = document.querySelector("#operator").value;
+                    var calculate;
+                
+                    //Check values are numerical
+                
+                    if(isNaN(a)){
+                        alert("You must provide a number for Value 1!");
+                    }
+                
+                    if(isNaN(b)){
+                        alert("You must provide a number for Value 2!");
+                    }
+                
+                    if (op == "add") {
+                        calculate = a + b;
+                    } else if (op == "min") {
+                        calculate = a - b;
+                    } else if (op == "div") {
+                        calculate = a / b;
+                    } else if (op == "mul") {
+                        calculate = a * b;
+                    } 
+                
+                    document.querySelector("#result").innerHTML = calculate;
+                }
+                  </code>
+              </pre>
+						</section>
+        </div>
+    
+    <!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+						<!--<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>-->
+						<li><a href="https://github.com/lhunt04" class="icon brands fa-github"><span class="label">Github Account</span></a></li>
+						<!--<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>-->
+						<li><a href="www.linkedin.com/in/lachlan-hunt-9b3503116
+							" class="icon brands fa-linkedin-in"><span class="label">Linkedin Account</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; LH Digital</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+      </footer>
+
+      <!-- Scripts -->
+      <script src="../assets/js/jquery.min.js"></script>
+      <script src="../assets/js/jquery.poptrox.min.js"></script>
+      <script src="../assets/js/browser.min.js"></script>
+      <script src="../assets/js/breakpoints.min.js"></script>
+      <script src="../assets/js/util.js"></script>
+      <script src="../assets/js/main.js"></script>
+      <script src="../assets/js/calc.js"></script>
+
+
+    </body>
+</html>
